@@ -6,6 +6,7 @@
 # install.packages("tensorflow")
 # tensorflow::install_tensorflow()
 
+# euclidean distance
 
 
 # Distance Matrix O(n*n)
@@ -16,7 +17,6 @@ X = matrix(runif(n*var), n, var)
 # Bad and slow R code
 simple_R_distance_bad = function(X){
   results = NULL
-  
   counter = 1
   for(i in 1:nrow(X)){
     tmp = NULL
@@ -76,8 +76,7 @@ Rcpp::sourceCpp(file = "vanilla.cpp",showOutput = TRUE,verbose = TRUE, rebuild =
 
 Sys.setenv(PKG_CXXFLAGS = "-std=c++14")
 Rcpp::sourceCpp(file = "arma.cpp",showOutput = TRUE,verbose = TRUE, rebuild = TRUE)
-res = eigen_Dist(X)
-res2 = Dist_cpp(X)
+
 
 test_seq = seq(100, by = 100, length.out = 10L)
 results = matrix(NA, nrow = 6, ncol = length(test_seq))
@@ -96,7 +95,7 @@ for(i in seq(100, by = 100, length.out = 10L)){
   counter = counter+1
 }
 
-matplot(t(results), type = "o")
+matplot(t(results), type = "o",pch = 1:6)
 
 
 
