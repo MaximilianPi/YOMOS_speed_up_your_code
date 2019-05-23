@@ -5,7 +5,7 @@
 using namespace Rcpp;
 // [[Rcpp::export]]
 
-NumericMatrix Dist_cpp(NumericMatrix X, int n_threads = 4) {
+NumericMatrix vanilla(NumericMatrix X, int n_threads = 4) {
   int n_row = X.rows();
   int n_col = X.cols();
   double tmp, tmp2;
@@ -18,6 +18,7 @@ NumericMatrix Dist_cpp(NumericMatrix X, int n_threads = 4) {
   }
   omp_set_dynamic(0);    
   omp_set_num_threads(n_threads);
+  
   #pragma omp parallel for
   for(int i = 0; i < n_row; i++){
     for(int j = i; j < n_row; j++){
