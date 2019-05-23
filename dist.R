@@ -44,8 +44,9 @@ simple_R_distance = function(X){
 
 
 library(tensorflow)
+tf$enable_eager_execution() #for tf 1.12
 TF_distance = function(X){
-  A = tf$constant(X)
+  A = tf$constant(X, tf$float32)
   r = tf$reduce_sum(tf$multiply(A, A), 1L)
   r = tf$reshape(r, c(-1L, 1L))
   D = r - 2.0*tf$matmul(A, tf$transpose(A)) + tf$transpose(r)
@@ -95,7 +96,7 @@ for(i in seq(100, by = 100, length.out = 10L)){
   counter = counter+1
 }
 
-
+matplot(t(results), type = "o")
 
 
 
