@@ -61,15 +61,15 @@ getTime = function(X, func, ...) return(system.time({func(X,...)}))
 
 
 
-n = 5000
-var = 50
+n = 100
+var = 5
 X = matrix(runif(n*var), n, var)
 getTime(X, simple_R_distance_bad)
-getTime(X, simple_R_distance, cl)
+getTime(X, simple_R_distance)
 
 
 Sys.getenv()
-Sys.setenv(PKG_CXXFLAGS = "-fopenmp -lgomp -std=c++14")
+Sys.setenv(PKG_CXXFLAGS = "-fopenmp -std=c++14")
 Rcpp::sourceCpp(file = "vanilla.cpp",showOutput = TRUE,verbose = TRUE, rebuild = TRUE)
 
 
@@ -78,8 +78,8 @@ Rcpp::sourceCpp(file = "arma.cpp",showOutput = TRUE,verbose = TRUE, rebuild = TR
 res = eigen_Dist(X)
 res2 = Dist_cpp(X)
 
-
-results = matrix(NA, nrow = 6, ncol = length(seq(1000, 1e4, by = 1000)))
+test_seq = seq(100, by = 100, length.out = 10L)
+results = matrix(NA, nrow = 6, ncol = length(test_seq))
 
 counter = 1
 for(i in seq(100, by = 100, length.out = 10L)){
@@ -87,11 +87,11 @@ for(i in seq(100, by = 100, length.out = 10L)){
   var = floor(0.5*i)
   X = matrix(runif(n*var), n, var)
   results[1, counter] = getTime(X, simple_R_distance)[3]
-  results[3, counter] = getTime(X, simple_R_distance_bad)[3]
-  results[4, counter] = getTime(X, vanilla, n_threads = 1L)[3]
-  results[5, counter] = getTime(X, vanilla, n_threads = 4L)[3]
-  results[6, counter] = getTime(X, arma)[3]
-  results[7, counter] = getTime(X, TF_distance)[3]
+  results[2, counter] = getTime(X, simple_R_distance_bad)[3]
+  results[3, counter] = getTime(X, vanilla, n_threads = 1L)[3]
+  results[4, counter] = getTime(X, vanilla, n_threads = 4L)[3]
+  results[5, counter] = getTime(X, arma_cpp)[3]
+  results[6, counter] = getTime(X, TF_distance)[3]
   counter = counter+1
 }
 

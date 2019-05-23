@@ -5,7 +5,7 @@
 using namespace arma;
 // [[Rcpp::export]]
 
-arma::mat arma(arma::mat M){
+arma::mat arma_cpp(arma::mat M){
   arma::mat row_sum(M.n_rows, 1);
   arma::mat MM = M;
   MM.for_each([](auto &val) {val*=val;});
