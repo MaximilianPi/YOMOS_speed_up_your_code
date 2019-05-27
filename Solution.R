@@ -70,7 +70,8 @@ getTime(X, simple_R_distance)
 
 
 Sys.getenv()
-Sys.setenv(PKG_CXXFLAGS = "-fopenmp -std=c++14")
+# !!!
+Sys.setenv(PKG_CXXFLAGS = "-std=c++14") # -fopenmp -lgomp
 Rcpp::sourceCpp(file = "vanilla.cpp",showOutput = TRUE,verbose = TRUE, rebuild = TRUE)
 
 

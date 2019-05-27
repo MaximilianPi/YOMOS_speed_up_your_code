@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 #include <math.h>
-#include <omp.h>
+//#include <omp.h>
 // [[Rcpp::plugins(openmp)]]
 using namespace Rcpp;
 // [[Rcpp::export]]
@@ -16,10 +16,10 @@ NumericMatrix vanilla(NumericMatrix X, int n_threads = 4) {
     for(int j = 0; j < n_row; j++)
       Results(i,j) = 0;
   }
-  omp_set_dynamic(0);    
-  omp_set_num_threads(n_threads);
+//  omp_set_dynamic(0);    
+//  omp_set_num_threads(n_threads);
   
-  #pragma omp parallel for
+  //#pragma omp parallel for
   for(int i = 0; i < n_row; i++){
     for(int j = i; j < n_row; j++){
       tmp = 0;

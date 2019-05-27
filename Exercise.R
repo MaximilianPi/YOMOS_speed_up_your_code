@@ -9,7 +9,7 @@
 # euclidean distance
 
 # Distance Matrix O(n*n)
-n = 1000
+n = 100
 var = 10
 X = matrix(runif(n*var), n, var)
 
@@ -36,3 +36,4 @@ X = matrix(runif(n*var), n, var)
 
 getTime(X, dist)
 getTime(X, simple_R_distance_bad)
+
